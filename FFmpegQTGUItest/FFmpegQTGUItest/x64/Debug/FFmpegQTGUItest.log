@@ -1,0 +1,30 @@
+﻿  Uic'ing DMessage.ui...
+  Uic'ing FFmpegQTGUItest.ui...
+  Rcc'ing FFmpegQTGUItest.qrc...
+  Moc'ing FFmpegQTGUItest.h...
+   C:\Users\liubing\Downloads\FFmpegQTGUItest\FFmpegQTGUItest\FFmpegQTGUItest.ui: Warning: The name 'layoutWidget' (QWidget) is already in use, defaulting to 'layoutWidget1'.
+   RCC: Warning: No resources in 'C:\Users\liubing\Downloads\FFmpegQTGUItest\FFmpegQTGUItest\FFmpegQTGUItest.qrc'.
+  Moc'ing DMessage.h...
+  Moc'ing worker.h...
+  DMessage.cpp
+  FFmpegQTGUItest.cpp
+  main.cpp
+  MyAudio.cpp
+c:\users\liubing\downloads\ffmpegqtguitest\ffmpegqtguitest\libavutil\rational.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 main.cpp)
+c:\users\liubing\downloads\ffmpegqtguitest\ffmpegqtguitest\libavutil\rational.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 FFmpegQTGUItest.cpp)
+  MyFFmpeg.cpp
+  PalyThread.cpp
+c:\users\liubing\downloads\ffmpegqtguitest\ffmpegqtguitest\libavutil\rational.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 MyFFmpeg.cpp)
+  PlayView.cpp
+c:\users\liubing\downloads\ffmpegqtguitest\ffmpegqtguitest\libavutil\rational.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 PalyThread.cpp)
+  worker.cpp
+c:\users\liubing\downloads\ffmpegqtguitest\ffmpegqtguitest\myffmpeg.cpp(225): warning C4715: “MyFFmpeg::YuvToRGB”: 不是所有的控件路径都返回值
+c:\users\liubing\downloads\ffmpegqtguitest\ffmpegqtguitest\libavutil\rational.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 PlayView.cpp)
+c:\users\liubing\downloads\ffmpegqtguitest\ffmpegqtguitest\libavutil\rational.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 worker.cpp)
+  qrc_FFmpegQTGUItest.cpp
+  moc_FFmpegQTGUItest.cpp
+  moc_DMessage.cpp
+  moc_worker.cpp
+c:\users\liubing\downloads\ffmpegqtguitest\ffmpegqtguitest\libavutil\rational.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 GeneratedFiles\Debug\moc_worker.cpp)
+c:\users\liubing\downloads\ffmpegqtguitest\ffmpegqtguitest\libavutil\rational.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 GeneratedFiles\Debug\moc_FFmpegQTGUItest.cpp)
+  FFmpegQTGUItest.vcxproj -> C:\Users\liubing\Downloads\FFmpegQTGUItest\x64\Debug\FFmpegQTGUItest.exe
