@@ -18,14 +18,14 @@ private:
 	PalyThread m_thread;		//≤•∑≈œﬂ≥Ã
 	QThread workthread;			//
 	worker m_worker;			
-	
+	MyFFmpeg* ffmanager = MyFFmpeg::getInstance();
 private:
 	void init();
 public slots:
 	void OnOpenfile();
 	void OnPlay();
 	void handleAddDM();
-	void handleNewPacket(AVPacket* frame);
+	void handleNewFrame(AVFrame* frame,int format);
 	void handleDMessage();
 signals:
 	void startdecode();

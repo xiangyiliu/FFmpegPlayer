@@ -1,5 +1,7 @@
 #include "FFmpegQTGUItest.h"
 #include "include.h"
+#include <QDateTime>
+#pragma execution_character_set("utf-8")
 
 FFmpegQTGUItest::FFmpegQTGUItest(QWidget *parent)
 	: QMainWindow(parent)
@@ -16,7 +18,7 @@ void FFmpegQTGUItest::init()
 	connect(ui.pushButton_2, SIGNAL(clicked()), this, SLOT(OnPlay()));
 	connect(ui.pushButton_4, SIGNAL(clicked()), this, SLOT(handleAddDM()));
 	connect(this, &FFmpegQTGUItest::startdecode, &m_worker, &worker::decode,Qt::QueuedConnection);
-	connect(&m_worker, &worker::newPacket, this, &FFmpegQTGUItest::handleNewPacket,Qt::QueuedConnection);
+	connect(&m_worker, &worker::newFrame, this, &FFmpegQTGUItest::handleNewFrame,Qt::QueuedConnection);
 	connect(this, &FFmpegQTGUItest::newDMessage,this,&FFmpegQTGUItest::handleDMessage);
 	
 	//打开线程
@@ -28,7 +30,7 @@ void FFmpegQTGUItest::init()
 
 void FFmpegQTGUItest::OnOpenfile()
 {
-	m_fileName = QFileDialog::getOpenFileName(NULL, QString::fromLocal8Bit("打开文件"), NULL, "");
+	m_fileName = QFileDialog::getOpenFileName(NULL, "打开文件", NULL, "");
 	if (m_fileName.length()<=0)
 	{
 		return;
@@ -36,21 +38,22 @@ void FFmpegQTGUItest::OnOpenfile()
 	ui.label->setText(m_fileName);
 	MyFFmpeg::getInstance()->openVidio(m_fileName.toLocal8Bit());
 	MyFFmpeg::getInstance()->m_Isplay = true;
-
-	ui.pushButton_2->setText(QString::fromLocal8Bit("暂停"));
+	//打开IO
+	MyAudio::getInstance()->Start();
+	ui.pushButton_2->setText("暂停");
 }
 
 void FFmpegQTGUItest::OnPlay()
 {
-	if (ui.pushButton_2->text() == QString::fromLocal8Bit("暂停"))
+	if (ui.pushButton_2->text() == "暂停")
 	{
 		MyFFmpeg::getInstance()->m_Isplay = false; //线程阻塞，视频暂停
-		ui.pushButton_2->setText(QString::fromLocal8Bit("播放"));
+		ui.pushButton_2->setText("播放");
 	}
 	else
 	{
 		MyFFmpeg::getInstance()->m_Isplay = true;  //线程运行，视频播放
-		ui.pushButton_2->setText(QString::fromLocal8Bit("暂停"));
+		ui.pushButton_2->setText("暂停");
 	}
 }
 
@@ -59,33 +62,28 @@ void FFmpegQTGUItest::handleAddDM()
 	emit newDMessage();
 }
 
-void FFmpegQTGUItest::handleNewPacket(AVPacket* packet)
+void FFmpegQTGUItest::handleNewFrame(AVFrame* frame, int format)
 {
-	Sleep(33);
-	AVFrame* frame = MyFFmpeg::getInstance()->decodeFrame(packet);
-	if (!frame)
-	{
-		return;
-	}
-	LOG << "pts:" << frame->pkt_pts / 44100;
-	LOG << "dts:" << frame->pkt_dts / 44100;
-	if (packet->stream_index == MyFFmpeg::getInstance()->getaudiostreamIndex())
+
+	//视频流的帧
+	if (format == 0)
 	{
 		ui.label_2->setframe(frame);
-		ui.label_2->update();
+		ui.label_2->repaint();
 	}
-	else
+	//音频流的帧
+	else if (format == 1) 
 	{
 		//读取音频
-		char voice[2048];
-		int size = MyFFmpeg::getInstance()->ToPCM(voice,frame);
+		char voice[2048*2];
+		int size = ffmanager->ToPCM(voice, frame);
 		if (size)
 		{
+			LOG << QTime::currentTime();
 			MyAudio::getInstance()->Write(voice, size);
 		}
 	}
 	av_frame_free(&frame);
-	av_packet_free(&packet);
 }
 
 void FFmpegQTGUItest::handleDMessage()

@@ -11,6 +11,7 @@ public:
 public slots:
 	void decode();
 signals:
-	void newPacket(AVPacket*);
+	//format 0 =  ”∆µ£¨1= “Ù∆µ
+	void newFrame(AVFrame*,int format); //
 };
 
