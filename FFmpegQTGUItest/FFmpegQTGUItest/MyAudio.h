@@ -25,7 +25,7 @@ public:
 	bool Write(const char *data, int datasize);
 	int GetFree();
 
-	int sampleRate = 48000;
+	int sampleRate = 44100;
 	int sampleSize = 16;
 	int channel = 2;
 

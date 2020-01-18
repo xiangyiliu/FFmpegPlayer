@@ -19,7 +19,7 @@ extern "C"
 
 #include <QDebug>
 #pragma execution_character_set("utf-8")
-#define  LOG (qDebug()<<__FUNCTION__)
+#define  LOG (qDebug()<<__FUNCTION__<<__LINE__)
 #include <QThread>
 
 #include "DMessage.h"

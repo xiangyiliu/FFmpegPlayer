@@ -5,6 +5,7 @@
 #include "PalyThread.h"
 #include "include.h"
 #include <windows.h>
+#include <QQueue>
 class FFmpegQTGUItest : public QMainWindow
 {
 	Q_OBJECT
@@ -19,6 +20,8 @@ private:
 	QThread workthread;			//
 	worker m_worker;			
 	MyFFmpeg* ffmanager = MyFFmpeg::getInstance();
+	int lastAudioFramePts = 0;
+	int lastVideoFramePts = 0;
 private:
 	void init();
 public slots:
