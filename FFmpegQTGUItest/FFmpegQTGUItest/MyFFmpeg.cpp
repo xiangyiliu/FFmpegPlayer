@@ -1,5 +1,6 @@
 #include "MyFFmpeg.h"
 #include "include.h"
+#include "MyAudio.h"
 
 MyFFmpeg::MyFFmpeg()
 {
@@ -148,6 +149,9 @@ bool MyFFmpeg::openVidio(const char* fileName)
 				LOG << "´ò¿ª½âÂëÆ÷Ê§°Ü";
 				return false;
 			}
+			MyAudio::getInstance()->sampleRate = acc->sample_rate;
+			MyAudio::getInstance()->sampleSize = acc->bits_per_coded_sample;
+			MyAudio::getInstance()->channel = acc->channels;
 		}
 	}
 	return true;
@@ -244,7 +248,7 @@ int MyFFmpeg::ToPCM(char *out, AVFrame* frame)
 
 	uint8_t * data[1];
 	data[0] = (uint8_t *)out;
-	int len = swr_convert(m_aCtx, data, 1024, (const uint8_t**)frame->data, frame->nb_samples);
+	int len = swr_convert(m_aCtx, data, frame->nb_samples, (const uint8_t**)frame->data, frame->nb_samples);
 	if (len <= 0)
 	{
 		return 0;

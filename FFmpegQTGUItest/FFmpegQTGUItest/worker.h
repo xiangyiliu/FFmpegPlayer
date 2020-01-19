@@ -13,5 +13,7 @@ public slots:
 signals:
 	//format 0 =  ”∆µ£¨1= “Ù∆µ
 	void newFrame(AVFrame*,int format); //
+private:
+	int lastVideoFramePts = 0;
 };
 
