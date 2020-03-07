@@ -1,5 +1,6 @@
 #include "worker.h"
 #include <windows.h>
+#include "MyAudio.h"
 
 worker::worker()
 {
@@ -52,10 +53,20 @@ void worker::decode()
 			auto duration = packet->duration;
 
 			double mduration = duration / MyFFmpeg::getInstance()->getAudioTimeBase() * 1000;
-			Sleep(mduration+1);
+			Sleep(mduration);
 			LOG << "pts:" << frame->pkt_pts / MyFFmpeg::getInstance()->getAudioTimeBase();
 			LOG << "dts:" << frame->pkt_dts / MyFFmpeg::getInstance()->getAudioTimeBase();
-			emit newFrame(frame, 1);
+			//emit newFrame(frame, 1);
+			//¶ÁÈ¡ÒôÆµ
+			char voice[2048 * 2];
+			DWORD start = ::GetTickCount();
+			int size = MyFFmpeg::getInstance()->ToPCM(voice, frame);
+			if (size)
+			{
+				LOG << "ToPCM cost time:" << ::GetTickCount() - start;
+				MyAudio::getInstance()->Write(voice, size);
+			}
+			av_frame_free(&frame);
 		}
 		av_packet_free(&packet);
 	}

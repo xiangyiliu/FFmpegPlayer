@@ -21,6 +21,7 @@ extern "C"
 #pragma execution_character_set("utf-8")
 #define  LOG (qDebug()<<__FUNCTION__)
 #include <QThread>
+#include <QTime>
 
 #include "DMessage.h"
 #include "worker.h"

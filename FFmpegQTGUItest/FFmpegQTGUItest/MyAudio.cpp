@@ -1,5 +1,5 @@
 #include "MyAudio.h"
-
+#include "include.h"
 
 
 MyAudio::MyAudio()
@@ -36,6 +36,7 @@ bool MyAudio::Start()
 	format.setCodec("audio/pcm");//音频格式
 	format.setByteOrder(QAudioFormat::LittleEndian);
 	format.setSampleType(QAudioFormat::UnSignedInt);//样本类型
+	
 
 	output = new QAudioOutput(format);
 	io = output->start();//Returns a pointer to the internal QIODevice being used to transfer data to the system's audio output. The device will already be open and write() can write data directly to it. Note: The pointer will become invalid after the stream is stopped or if you start another stream.
@@ -74,6 +75,7 @@ bool MyAudio::Write(const char *data, int datasize)
 	if (io)
 	{
 		mutex.unlock();
+		LOG << QTime::currentTime();
 		io->write(data, datasize);
 		return true;
 	}

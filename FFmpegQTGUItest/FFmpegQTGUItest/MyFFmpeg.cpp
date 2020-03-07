@@ -254,8 +254,8 @@ int MyFFmpeg::ToPCM(char *out, AVFrame* frame)
 		return 0;
 	}
 
-	int outsize = av_samples_get_buffer_size(NULL, acc->channels, frame->nb_samples, AV_SAMPLE_FMT_S16, 0);
+	int outsize = av_samples_get_buffer_size(frame->linesize, acc->channels, frame->nb_samples, AV_SAMPLE_FMT_S16, 0);
 
-	swr_free(&m_aCtx);
+	//swr_free(&m_aCtx);
 	return outsize;
 }

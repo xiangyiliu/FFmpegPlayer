@@ -76,12 +76,14 @@ void FFmpegQTGUItest::handleNewFrame(AVFrame* frame, int format)
 	{
 		//¶ÁÈ¡ÒôÆµ
 		char voice[2048*2];
+		DWORD start =  ::GetTickCount();
 		int size = ffmanager->ToPCM(voice, frame);
 		if (size)
 		{
-			LOG << QTime::currentTime();
+			LOG << "ToPCM cost time:" <<::GetTickCount()-start;
 			MyAudio::getInstance()->Write(voice, size);
 		}
+		
 	}
 	av_frame_free(&frame);
 }
